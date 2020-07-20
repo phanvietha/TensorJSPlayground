@@ -133,9 +133,19 @@ model.compile({ optimizer: "sgd", loss: "meanAbsoluteError" });
     .evaluate(testTensors.sizeMB, testTensors.timeSec)
     .toString();
   console.log(`Evaluated: ${evaluated}`);
+
+  /// Predict
+
+  const smallFileMB = 1;
+  const bigFileMB = 100;
+  const hugeFileMB = 10000;
+
+  const prediction = model
+    .predict(tf.tensor2d([[smallFileMB], [bigFileMB], [hugeFileMB]]))
+    .toString();
+
+  console.log(`Prediction: ${prediction}`);
 })();
-
-
 
 const avgDelaySec = tf.mean(trainData.timeSec);
 avgDelaySec.print();
